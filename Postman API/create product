@@ -1,0 +1,16 @@
+//Zmieniamy adres url zapytania, na końcu zamiast id produktu wstawiamy {{id}}
+//Pre-request Script
+let id = pm.collectionVariables.get("id");
+ if(!id){     
+     id=88000 
+}else{     
+    id=+id 
+} 
+pm.collectionVariables.set("id", ++id);
+
+//W Tests warto też wpisać testy które pozwolą nam monitorować przebieg funkcji:
+let id = pm.collectionVariables.get("id");   
+postman.setNextRequest("Loop Query Parameter");   
+pm.test(Status code is 202 with external id ${id}, function () {  
+    pm.response.to.have.status(202); 
+});
